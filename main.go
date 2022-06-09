@@ -1,19 +1,42 @@
 package main
 
 import (
-	_ "ingresos_crud/routers"
-
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/plugins/cors"
 	_ "github.com/lib/pq"
+
+	_ "github.com/udistrital/ingresos_crud/routers"
 )
 
 func main() {
-	orm.RegisterDataBase("default", "postgres", beego.AppConfig.String("sqlconn"))
+	orm.Debug = true
+	orm.RegisterDataBase("default", "postgres", "postgres://"+
+		beego.AppConfig.String("PGuser")+
+		":"+beego.AppConfig.String("PGpass")+
+		"@"+beego.AppConfig.String("PGurls")+
+		":"+beego.AppConfig.String("PGport")+
+		"/"+beego.AppConfig.String("PGdb")+
+		"?sslmode=disable&search_path="+
+		beego.AppConfig.String("PGschemas")+"")
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
+		// orm.Debug = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
+
+	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"PUT", "PATCH", "GET", "POST", "OPTIONS", "DELETE"},
+		AllowHeaders: []string{"Origin", "x-requested-with",
+			"content-type",
+			"accept",
+			"origin",
+			"authorization",
+			"x-csrftoken"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
+
 	beego.Run()
 }
-
