@@ -1,12 +1,12 @@
 -- Database generated with pgModeler (PostgreSQL Database Modeler).
 -- pgModeler version: 0.9.4
--- PostgreSQL version: 10.0
+-- PostgreSQL version: 12.0
 -- Project Site: pgmodeler.io
 -- Model Author: ---
 
--- Database creation must be performed outside a multi lined SQL file.
+-- Database creation must be performed outside a multi lined SQL file. 
 -- These commands were put in this file only as a convenience.
---
+-- 
 -- object: udistrital_financiera | type: DATABASE --
 -- DROP DATABASE IF EXISTS udistrital_financiera;
 -- CREATE DATABASE udistrital_financiera;
@@ -18,7 +18,7 @@
 CREATE SCHEMA ingresos;
 -- ddl-end --
 
-SET search_path TO public,ingresos;
+SET search_path TO pg_catalog,public,ingresos;
 -- ddl-end --
 
 -- object: ingresos.ingreso | type: TABLE --
@@ -46,6 +46,14 @@ CREATE TABLE ingresos.tipo_ingreso (
 	tipo character varying NOT NULL,
 	parametrizacion_contable jsonb,
 	activo boolean NOT NULL,
+	fecha_creacion timestamp NOT NULL,
+	fecha_modificacion timestamp NOT NULL,
+	CONSTRAINT pk_id_tipo_ingreso PRIMARY KEY (id)
+);
+-- ddl-end --
+
+-- object: ingresos.afectacion_presupuestal | type: TABLE --
+-- DROP TABLE IF EXISTS ingresos.afectacion_presupuestal CASCADE;
 CREATE TABLE ingresos.afectacion_presupuestal (
 	id serial NOT NULL,
 	ingreso_id integer NOT NULL,
@@ -70,11 +78,6 @@ ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE ingresos.afectacion_presupuestal ADD CONSTRAINT fk_ingreso_afectacion_presupuestal FOREIGN KEY (ingreso_id)
 REFERENCES ingresos.ingreso (id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ddl-end --	fecha_creacion timestamp NOT NULL,
-	fecha_modificacion timestamp NOT NULL,
-	CONSTRAINT pk_id_tipo_ingreso PRIMARY KEY (id)
-);
 -- ddl-end --
 
--- object: ingresos.afectacion_presupuestal | type: TABLE --
--- DROP TABLE IF EXISTS ingresos.afectacion_presupuestal CASCADE;
+
