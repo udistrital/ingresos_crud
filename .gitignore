@@ -1,0 +1,24 @@
+# Binarios y temporales
+.DS_Store
+*.exe
+*~
+*.tmp
+*.log
+*.zip
+ingresos_crud
+main
+
+# Variables de entorno
+*.env
+!*template*.env
+!.develop.env
+
+# Otros
+WebIM/WebIM
+shorturl/shorturl
+todo/todo
+.vscode
+.scannerwork/
+swagger/**
+!swagger/swagger.json
+!swagger/swagger.yml
