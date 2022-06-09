@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="0.95" max-obj-count="4"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="udistrital_financiera" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="ingresos" layers="0" rect-visible="true" fill-color="#e1e1e1">
+</schema>
+
+<table name="ingreso" layers="0" collapse-mode="2" max-obj-count="13" z-value="0">
+	<schema name="ingresos"/>
+	<position x="680" y="200"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="vigencia_id" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="consecutivo" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="area_funcional" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="valor_total" not-null="true">
+		<type name="numeric" length="20" precision="7"/>
+	</column>
+	<column name="tipo_ingreso_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="movimiento_contable_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="metadatos">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_id_ingreso" type="pk-constr" table="ingresos.ingreso">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tipo_ingreso" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="ingresos"/>
+	<position x="40" y="220"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="tipo" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="parametrizacion_contable">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_id_tipo_ingreso" type="pk-constr" table="ingresos.tipo_ingreso">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="afectacion_presupuestal" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="ingresos"/>
+	<position x="1380" y="280"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="ingreso_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="rubro_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="activo" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="fecha_creacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="fecha_modificacion" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="pk_afectacion_presupuestal" type="pk-constr" table="ingresos.afectacion_presupuestal">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="uq_ingreso_rubro_afectacion_presupuestal" type="uq-constr" table="ingresos.afectacion_presupuestal">
+		<columns names="ingreso_id,rubro_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<textbox name="Preguntas" layers="0" z-value="0" font-size="9">
+	<position x="580" y="160"/>
+	<comment><![CDATA[Almacenar Centro Gestor en parámetros porque es el mismo para toda la Universidad (230)]]></comment>
+</textbox>
+
+<textbox name="Referencia rubro_id" layers="0" z-value="0" font-size="9">
+	<position x="1440" y="520"/>
+	<comment><![CDATA[El campo rubro_id hace referencia 
+al rubro almacenado en Plan Cuentas 
+Mongo CRUD]]></comment>
+</textbox>
+
+<textbox name="Referencia movimiento_contable_id" layers="0" z-value="0" font-size="9">
+	<position x="560" y="520"/>
+	<comment><![CDATA[El campo movimiento_contable_id 
+hace referencia a las APIS del cliente 
+de Plan Cuentas Contables, se espera 
+definir a qué tabla y esquema 
+específicamente va a estar]]></comment>
+</textbox>
+
+<textbox name="Referencia vigencia_id" layers="0" z-value="0" font-size="9">
+	<position x="860" y="520"/>
+	<comment><![CDATA[El campo vigencia_id hace referencia
+a la vigencia actual en Plan Cuentas
+Mongo CRUD]]></comment>
+</textbox>
+
+<constraint name="fk_ingreso_tipo_ingreso" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="ingresos.tipo_ingreso" table="ingresos.ingreso">
+	<columns names="tipo_ingreso_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_ingreso_afectacion_presupuestal" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="ingresos.ingreso" table="ingresos.afectacion_presupuestal">
+	<columns names="ingreso_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_afectacion_presupuestal_ingreso" type="relfk" layers="0"
+	 src-table="ingresos.afectacion_presupuestal"
+	 dst-table="ingresos.ingreso" reference-fk="fk_ingreso_afectacion_presupuestal"
+	 src-required="false" dst-required="true">
+	<label ref-type="src-label">
+		<position x="0" y="0"/>
+	</label>
+	<label ref-type="dst-label">
+		<position x="11.6697" y="-13.375"/>
+	</label>
+</relationship>
+
+<relationship name="rel_ingreso_tipo_ingreso" type="relfk" layers="0"
+	 src-table="ingresos.ingreso"
+	 dst-table="ingresos.tipo_ingreso" reference-fk="fk_ingreso_tipo_ingreso"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
