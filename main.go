@@ -8,6 +8,7 @@ import (
 
 	_ "github.com/udistrital/ingresos_crud/routers"
 	"github.com/udistrital/utils_oas/auditoria"
+	"github.com/udistrital/utils_oas/customerrorv2"
 )
 
 func main() {
@@ -40,5 +41,6 @@ func main() {
 	}))
 
 	auditoria.InitMiddleware()
+	beego.ErrorController(&customerrorv2.CustomErrorController{})
 	beego.Run()
 }
