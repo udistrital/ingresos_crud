@@ -7,6 +7,7 @@ import (
 	_ "github.com/lib/pq"
 
 	_ "github.com/udistrital/ingresos_crud/routers"
+	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
 	"github.com/udistrital/utils_oas/auditoria"
 	"github.com/udistrital/utils_oas/customerrorv2"
 )
@@ -42,5 +43,6 @@ func main() {
 
 	auditoria.InitMiddleware()
 	beego.ErrorController(&customerrorv2.CustomErrorController{})
+	apistatus.Init()
 	beego.Run()
 }
