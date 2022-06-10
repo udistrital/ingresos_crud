@@ -7,6 +7,7 @@ import (
 	_ "github.com/lib/pq"
 
 	_ "github.com/udistrital/ingresos_crud/routers"
+	"github.com/udistrital/utils_oas/auditoria"
 )
 
 func main() {
@@ -38,5 +39,6 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+	auditoria.InitMiddleware()
 	beego.Run()
 }
