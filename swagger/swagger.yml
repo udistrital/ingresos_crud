@@ -35,11 +35,11 @@ paths:
         description: Order corresponding to each sortby field, if single value, apply
           to all sortby fields. e.g. desc,asc ...
         type: string
-      - in: query
+      - in: int
         name: limit
         description: Limit the size of result set. Must be an integer
         type: string
-      - in: query
+      - in: int
         name: offset
         description: Start position of result set. Must be an integer
         type: string
@@ -47,7 +47,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.AfectacionPresupuestal'
+            type: array
+            items:
+              $ref: '#/definitions/models.AfectacionPresupuestal'
         "404":
           description: not found resource
     post:
@@ -64,7 +66,9 @@ paths:
           $ref: '#/definitions/models.AfectacionPresupuestal'
       responses:
         "201":
-          description: '{int} models.AfectacionPresupuestal'
+          description: ""
+          schema:
+            $ref: '#/definitions/models.AfectacionPresupuestal'
         "400":
           description: the request contains incorrect syntax
   /afectacion_presupuestal/{id}:
@@ -78,7 +82,8 @@ paths:
         name: id
         description: The key for staticblock
         required: true
-        type: string
+        type: integer
+        format: int64
       responses:
         "200":
           description: ""
@@ -96,7 +101,8 @@ paths:
         name: id
         description: The id you want to update
         required: true
-        type: string
+        type: integer
+        format: int64
       - in: body
         name: body
         description: body for AfectacionPresupuestal content
@@ -120,10 +126,13 @@ paths:
         name: id
         description: The id you want to delete
         required: true
-        type: string
+        type: integer
+        format: int64
       responses:
         "200":
-          description: '{string} delete success!'
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Deleted'
         "404":
           description: not found resource
   /ingreso/:
@@ -150,11 +159,11 @@ paths:
         description: Order corresponding to each sortby field, if single value, apply
           to all sortby fields. e.g. desc,asc ...
         type: string
-      - in: query
+      - in: int
         name: limit
         description: Limit the size of result set. Must be an integer
         type: string
-      - in: query
+      - in: int
         name: offset
         description: Start position of result set. Must be an integer
         type: string
@@ -179,7 +188,9 @@ paths:
           $ref: '#/definitions/models.Ingreso'
       responses:
         "201":
-          description: '{int} models.Ingreso'
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Ingreso'
         "400":
           description: the request contains incorrect syntax
   /ingreso/{id}:
@@ -193,7 +204,8 @@ paths:
         name: id
         description: The key for staticblock
         required: true
-        type: string
+        type: integer
+        format: int64
       responses:
         "200":
           description: ""
@@ -211,7 +223,8 @@ paths:
         name: id
         description: The id you want to update
         required: true
-        type: string
+        type: integer
+        format: int64
       - in: body
         name: body
         description: body for Ingreso content
@@ -235,10 +248,13 @@ paths:
         name: id
         description: The id you want to delete
         required: true
-        type: string
+        type: integer
+        format: int64
       responses:
         "200":
-          description: '{string} delete success!'
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Deleted'
         "404":
           description: not found resource
   /tipo_ingreso/:
@@ -265,11 +281,11 @@ paths:
         description: Order corresponding to each sortby field, if single value, apply
           to all sortby fields. e.g. desc,asc ...
         type: string
-      - in: query
+      - in: int
         name: limit
         description: Limit the size of result set. Must be an integer
         type: string
-      - in: query
+      - in: int
         name: offset
         description: Start position of result set. Must be an integer
         type: string
@@ -277,7 +293,9 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TipoIngreso'
+            type: array
+            items:
+              $ref: '#/definitions/models.TipoIngreso'
         "404":
           description: not found resource
     post:
@@ -294,7 +312,9 @@ paths:
           $ref: '#/definitions/models.TipoIngreso'
       responses:
         "201":
-          description: '{int} models.TipoIngreso'
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TipoIngreso'
         "400":
           description: the request contains incorrect syntax
   /tipo_ingreso/{id}:
@@ -308,7 +328,8 @@ paths:
         name: id
         description: The key for staticblock
         required: true
-        type: string
+        type: integer
+        format: int64
       responses:
         "200":
           description: ""
@@ -326,7 +347,8 @@ paths:
         name: id
         description: The id you want to update
         required: true
-        type: string
+        type: integer
+        format: int64
       - in: body
         name: body
         description: body for TipoIngreso content
@@ -350,10 +372,13 @@ paths:
         name: id
         description: The id you want to delete
         required: true
-        type: string
+        type: integer
+        format: int64
       responses:
         "200":
-          description: '{string} delete success!'
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Deleted'
         "404":
           description: not found resource
 definitions:
@@ -375,6 +400,13 @@ definitions:
       IngresoId:
         $ref: '#/definitions/models.Ingreso'
       RubroId:
+        type: integer
+        format: int64
+  models.Deleted:
+    title: Deleted
+    type: object
+    properties:
+      Id:
         type: integer
         format: int64
   models.Ingreso:
@@ -415,6 +447,10 @@ definitions:
     properties:
       Activo:
         type: boolean
+      CodigoAbreviacion:
+        type: string
+      Descripcion:
+        type: string
       FechaCreacion:
         type: string
         format: datetime
@@ -424,6 +460,9 @@ definitions:
       Id:
         type: integer
         format: int64
+      NumeroOrden:
+        type: number
+        format: double
       ParametrizacionContable:
         type: string
       Tipo:
