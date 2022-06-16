@@ -11,17 +11,17 @@ import (
 )
 
 type Ingreso struct {
-	Id                   int          `orm:"column(id);pk"`
+	Id                   int          `orm:"column(id);pk;auto"`
 	VigenciaId           string       `orm:"column(vigencia_id)"`
 	Consecutivo          int          `orm:"column(consecutivo)"`
 	AreaFuncional        string       `orm:"column(area_funcional)"`
 	ValorTotal           float64      `orm:"column(valor_total)"`
 	TipoIngresoId        *TipoIngreso `orm:"column(tipo_ingreso_id);rel(fk)"`
 	MovimientoContableId int          `orm:"column(movimiento_contable_id)"`
-	Metadatos            string       `orm:"column(metadatos);null"`
+	Metadatos            string       `orm:"column(metadatos);null;type(jsonb)"`
 	Activo               bool         `orm:"column(activo)"`
-	FechaCreacion        time.Time    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion    time.Time    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion        time.Time    `orm:"column(fecha_creacion);auto_now_add;type(datetime)"`
+	FechaModificacion    time.Time    `orm:"column(fecha_modificacion);auto_now;type(datetime)"`
 }
 
 func (t *Ingreso) TableName() string {

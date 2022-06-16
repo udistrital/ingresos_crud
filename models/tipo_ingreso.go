@@ -11,12 +11,15 @@ import (
 )
 
 type TipoIngreso struct {
-	Id                      int       `orm:"column(id);pk"`
+	Id                      int       `orm:"column(id);pk;auto"`
 	Tipo                    string    `orm:"column(tipo)"`
-	ParametrizacionContable string    `orm:"column(parametrizacion_contable);null"`
+	Descripcion             string    `orm:"column(descripcion);null"`
+	ParametrizacionContable string    `orm:"column(parametrizacion_contable);null;type(jsonb)"`
+	NumeroOrden             float64   `orm:"column(numero_orden);null"`
+	CodigoAbreviacion       string    `orm:"column(codigo_abreaviacion);null"`
 	Activo                  bool      `orm:"column(activo)"`
-	FechaCreacion           time.Time `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion       time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion           time.Time `orm:"column(fecha_creacion);auto_now_add;type(datetime)"`
+	FechaModificacion       time.Time `orm:"column(fecha_modificacion);auto_now;type(datetime)"`
 }
 
 func (t *TipoIngreso) TableName() string {

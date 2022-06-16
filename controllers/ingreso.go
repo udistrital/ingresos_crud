@@ -6,10 +6,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/udistrital/ingresos_crud/models"
-
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
+
+	"github.com/udistrital/ingresos_crud/models"
 )
 
 // IngresoController operations for Ingreso
@@ -30,7 +30,7 @@ func (c *IngresoController) URLMapping() {
 // @Title Post
 // @Description create Ingreso
 // @Param	body		body 	models.Ingreso	true		"body for Ingreso content"
-// @Success 201 {int} models.Ingreso
+// @Success 201 {object} models.Ingreso
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
 func (c *IngresoController) Post() {
@@ -55,7 +55,7 @@ func (c *IngresoController) Post() {
 // GetOne ...
 // @Title Get One
 // @Description get Ingreso by id
-// @Param	id		path 	string	true		"The key for staticblock"
+// @Param	id		path 	int	true		"The key for staticblock"
 // @Success 200 {object} models.Ingreso
 // @Failure 404 not found resource
 // @router /:id [get]
@@ -80,8 +80,8 @@ func (c *IngresoController) GetOne() {
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
-// @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
-// @Param	offset	query	string	false	"Start position of result set. Must be an integer"
+// @Param	limit	int	string	false	"Limit the size of result set. Must be an integer"
+// @Param	offset	int	string	false	"Start position of result set. Must be an integer"
 // @Success 200 {object} models.Ingreso
 // @Failure 404 not found resource
 // @router / [get]
@@ -144,7 +144,7 @@ func (c *IngresoController) GetAll() {
 // Put ...
 // @Title Put
 // @Description update the Ingreso
-// @Param	id		path 	string	true		"The id you want to update"
+// @Param	id		path 	int	true		"The id you want to update"
 // @Param	body		body 	models.Ingreso	true		"body for Ingreso content"
 // @Success 200 {object} models.Ingreso
 // @Failure 400 the request contains incorrect syntax
@@ -172,15 +172,15 @@ func (c *IngresoController) Put() {
 // Delete ...
 // @Title Delete
 // @Description delete the Ingreso
-// @Param	id		path 	string	true		"The id you want to delete"
-// @Success 200 {string} delete success!
+// @Param	id		path 	int	true		"The id you want to delete"
+// @Success 200 {object} models.Deleted
 // @Failure 404 not found resource
 // @router /:id [delete]
 func (c *IngresoController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteIngreso(id); err == nil {
-		d := map[string]interface{}{"Id": id}
+		d := models.Deleted{Id: id}
 		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Delete successful", "Data": d}
 	} else {
 		logs.Error(err)

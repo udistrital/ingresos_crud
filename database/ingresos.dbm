@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="0.95" max-obj-count="4"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,81" last-zoom="0.95" max-obj-count="4"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -21,91 +21,131 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="ingreso" layers="0" collapse-mode="2" max-obj-count="13" z-value="0">
 	<schema name="ingresos"/>
+	<comment><![CDATA[Tabla que almacena toda la información pertinente para consultar un registro]]></comment>
 	<position x="680" y="200"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
+		<comment><![CDATA[Identificador de la tabla de ingreso, sequencia generada por el motor de base de datos.]]></comment>
 	</column>
 	<column name="vigencia_id" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Identificador de la vigencia actual almacenada en la colección plan_cuentas.vigencia_233_2 de mongo]]></comment>
 	</column>
 	<column name="consecutivo" not-null="true">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Número que indica cuántos ingresos se han generado]]></comment>
 	</column>
 	<column name="area_funcional" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Campo que almacena los datos de la entidad que realiza el ingreso (Rector, Convenios, etc)]]></comment>
 	</column>
 	<column name="valor_total" not-null="true">
 		<type name="numeric" length="20" precision="7"/>
+		<comment><![CDATA[Campo para almacenar el valor final de un ingreso]]></comment>
 	</column>
 	<column name="tipo_ingreso_id">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Campo para relacionar un id de la tabla tipo_ingreso]]></comment>
 	</column>
 	<column name="movimiento_contable_id" not-null="true">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Campo para relacionar un id de los movimientos contables (actualmente almacenado como metadato)]]></comment>
 	</column>
 	<column name="metadatos">
 		<type name="jsonb" length="0"/>
+		<comment><![CDATA[Datos varios para identificar el ingreso (datos WebService, movimiento contable, etc)]]></comment>
 	</column>
 	<column name="activo" not-null="true">
 		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo para verificar que el registro está en uso]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamptz" length="0"/>
+		<comment><![CDATA[Fecha en la fue registrado el ingreso]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamptz" length="0"/>
+		<comment><![CDATA[Fecha en la que fue modificado el ingreso]]></comment>
 	</column>
 	<constraint name="pk_id_ingreso" type="pk-constr" table="ingresos.ingreso">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="tipo_ingreso" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+<table name="tipo_ingreso" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
 	<schema name="ingresos"/>
+	<comment><![CDATA[Tabla que relaciona un ingreso con su tipo correspondiente]]></comment>
 	<position x="40" y="220"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
+		<comment><![CDATA[Identificador de la tabla de tipo_ingreso, sequencia generada por el motor de base de datos.]]></comment>
 	</column>
 	<column name="tipo" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Nombre que se le asigna a cada tipo de ingreso]]></comment>
+	</column>
+	<column name="descripcion">
+		<type name="character varying" length="250"/>
+		<comment><![CDATA[Descripción ampliada del tipo de ingreso]]></comment>
 	</column>
 	<column name="parametrizacion_contable">
 		<type name="jsonb" length="0"/>
+		<comment><![CDATA[Parametrización utilizada para vincular un tipo de ingreso con un tipo de movimiento contable]]></comment>
+	</column>
+	<column name="numero_orden">
+		<type name="numeric" length="5" precision="2"/>
+	</column>
+	<column name="codigo_abreviacion">
+		<type name="character varying" length="20"/>
+		<comment><![CDATA[Sigla que describa el tipo de ingreso]]></comment>
 	</column>
 	<column name="activo" not-null="true">
 		<type name="boolean" length="0"/>
+		<comment><![CDATA[Dato que indica si el registro es válido]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamptz" length="0"/>
+		<comment><![CDATA[Fecha en la que se creó el tipo de ingreso]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamptz" length="0"/>
+		<comment><![CDATA[Fecha en la que se modificó el registro del tipo de ingreso]]></comment>
 	</column>
 	<constraint name="pk_id_tipo_ingreso" type="pk-constr" table="ingresos.tipo_ingreso">
 		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="uq_codigo_abreviacion" type="uq-constr" table="ingresos.tipo_ingreso">
+		<columns names="codigo_abreviacion" ref-type="src-columns"/>
 	</constraint>
 </table>
 
 <table name="afectacion_presupuestal" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="ingresos"/>
+	<comment><![CDATA[Tabla que relaciona un ingreso con los diferentes rubros que pueda incluir al momento de la creación]]></comment>
 	<position x="1380" y="280"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
+		<comment><![CDATA[Identificador de la tabla de afectacion_presupuestal, sequencia generada por el motor de base de datos.]]></comment>
 	</column>
 	<column name="ingreso_id" not-null="true">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Campo para relacionar un id de la tabla de ingreso.]]></comment>
 	</column>
 	<column name="rubro_id" not-null="true">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Campo para relacionar los rubros almacenados en plan_cuentas.arbol_rubro_apropiacion_año_periodo; donde año y periodo son los actuales, al momento de la creación del esquema 2022_1]]></comment>
 	</column>
 	<column name="activo" not-null="true">
 		<type name="boolean" length="0"/>
+		<comment><![CDATA[Campo que indica si un registro es válido]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamptz" length="0"/>
+		<comment><![CDATA[Fecha en la que se creó un registro de afectación presupuestal]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamp" length="0"/>
+		<type name="timestamptz" length="0"/>
+		<comment><![CDATA[Fecha en la que se realizó la modificación del registro en afectación presupuestal]]></comment>
 	</column>
 	<constraint name="pk_afectacion_presupuestal" type="pk-constr" table="ingresos.afectacion_presupuestal">
 		<columns names="id" ref-type="src-columns"/>
@@ -121,10 +161,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </textbox>
 
 <textbox name="Referencia rubro_id" layers="0" z-value="0" font-size="9">
-	<position x="1440" y="520"/>
+	<position x="1420" y="520"/>
 	<comment><![CDATA[El campo rubro_id hace referencia 
 al rubro almacenado en Plan Cuentas 
-Mongo CRUD]]></comment>
+Mongo CRUD, exactamente en:
+plan_cuentas.arbol_rubro_apropiacion_año_periodo
+donde año y periodo son los actuales]]></comment>
 </textbox>
 
 <textbox name="Referencia movimiento_contable_id" layers="0" z-value="0" font-size="9">
@@ -133,14 +175,18 @@ Mongo CRUD]]></comment>
 hace referencia a las APIS del cliente 
 de Plan Cuentas Contables, se espera 
 definir a qué tabla y esquema 
-específicamente va a estar]]></comment>
+específicamente va a estar
+
+Actualmente almacenado como
+metadato en la tabla ingreso]]></comment>
 </textbox>
 
 <textbox name="Referencia vigencia_id" layers="0" z-value="0" font-size="9">
 	<position x="860" y="520"/>
 	<comment><![CDATA[El campo vigencia_id hace referencia
 a la vigencia actual en Plan Cuentas
-Mongo CRUD]]></comment>
+Mongo CRUD, exactamente en:
+plan_cuentas.vigencia_233_2]]></comment>
 </textbox>
 
 <constraint name="fk_ingreso_tipo_ingreso" type="fk-constr" comparison-type="MATCH SIMPLE"

@@ -30,7 +30,7 @@ func (c *TipoIngresoController) URLMapping() {
 // @Title Post
 // @Description create TipoIngreso
 // @Param	body		body 	models.TipoIngreso	true		"body for TipoIngreso content"
-// @Success 201 {int} models.TipoIngreso
+// @Success 201 {object} models.TipoIngreso
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
 func (c *TipoIngresoController) Post() {
@@ -55,7 +55,7 @@ func (c *TipoIngresoController) Post() {
 // GetOne ...
 // @Title Get One
 // @Description get TipoIngreso by id
-// @Param	id		path 	string	true		"The key for staticblock"
+// @Param	id		path 	int	true		"The key for staticblock"
 // @Success 200 {object} models.TipoIngreso
 // @Failure 404 not found resource
 // @router /:id [get]
@@ -80,9 +80,9 @@ func (c *TipoIngresoController) GetOne() {
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
-// @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
-// @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.TipoIngreso
+// @Param	limit	int	string	false	"Limit the size of result set. Must be an integer"
+// @Param	offset	int	string	false	"Start position of result set. Must be an integer"
+// @Success 200 {object} []models.TipoIngreso
 // @Failure 404 not found resource
 // @router / [get]
 func (c *TipoIngresoController) GetAll() {
@@ -144,7 +144,7 @@ func (c *TipoIngresoController) GetAll() {
 // Put ...
 // @Title Put
 // @Description update the TipoIngreso
-// @Param	id		path 	string	true		"The id you want to update"
+// @Param	id		path 	int	true		"The id you want to update"
 // @Param	body		body 	models.TipoIngreso	true		"body for TipoIngreso content"
 // @Success 200 {object} models.TipoIngreso
 // @Failure 400 the request contains incorrect syntax
@@ -172,15 +172,15 @@ func (c *TipoIngresoController) Put() {
 // Delete ...
 // @Title Delete
 // @Description delete the TipoIngreso
-// @Param	id		path 	string	true		"The id you want to delete"
-// @Success 200 {string} delete success!
+// @Param	id		path 	int	true		"The id you want to delete"
+// @Success 200 {object} models.Deleted
 // @Failure 404 not found resource
 // @router /:id [delete]
 func (c *TipoIngresoController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteTipoIngreso(id); err == nil {
-		d := map[string]interface{}{"Id": id}
+		d := models.Deleted{Id: id}
 		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Delete successful", "Data": d}
 	} else {
 		logs.Error(err)

@@ -13,7 +13,6 @@ import (
 )
 
 func main() {
-	orm.Debug = true
 	orm.RegisterDataBase("default", "postgres", "postgres://"+
 		beego.AppConfig.String("PGuser")+
 		":"+beego.AppConfig.String("PGpass")+
@@ -24,7 +23,7 @@ func main() {
 		beego.AppConfig.String("PGschemas")+"")
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
-		// orm.Debug = true
+		orm.Debug = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 

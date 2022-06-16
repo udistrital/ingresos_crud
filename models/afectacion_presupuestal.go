@@ -11,12 +11,12 @@ import (
 )
 
 type AfectacionPresupuestal struct {
-	Id                int       `orm:"column(id);pk"`
+	Id                int       `orm:"column(id);pk;auto"`
 	IngresoId         *Ingreso  `orm:"column(ingreso_id);rel(fk)"`
 	RubroId           int       `orm:"column(rubro_id)"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time `orm:"column(fecha_creacion);auto_now_add;type(datetime)"`
+	FechaModificacion time.Time `orm:"column(fecha_modificacion);auto_now;type(datetime)"`
 }
 
 func (t *AfectacionPresupuestal) TableName() string {
