@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,81" last-zoom="0.95" max-obj-count="4"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="0.95" max-obj-count="4"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -60,11 +60,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<comment><![CDATA[Campo para verificar que el registro está en uso]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamptz" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Fecha en la fue registrado el ingreso]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamptz" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Fecha en la que fue modificado el ingreso]]></comment>
 	</column>
 	<constraint name="pk_id_ingreso" type="pk-constr" table="ingresos.ingreso">
@@ -104,11 +104,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<comment><![CDATA[Dato que indica si el registro es válido]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamptz" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Fecha en la que se creó el tipo de ingreso]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamptz" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Fecha en la que se modificó el registro del tipo de ingreso]]></comment>
 	</column>
 	<constraint name="pk_id_tipo_ingreso" type="pk-constr" table="ingresos.tipo_ingreso">
@@ -140,11 +140,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<comment><![CDATA[Campo que indica si un registro es válido]]></comment>
 	</column>
 	<column name="fecha_creacion" not-null="true">
-		<type name="timestamptz" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Fecha en la que se creó un registro de afectación presupuestal]]></comment>
 	</column>
 	<column name="fecha_modificacion" not-null="true">
-		<type name="timestamptz" length="0"/>
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
 		<comment><![CDATA[Fecha en la que se realizó la modificación del registro en afectación presupuestal]]></comment>
 	</column>
 	<constraint name="pk_afectacion_presupuestal" type="pk-constr" table="ingresos.afectacion_presupuestal">

@@ -4,9 +4,9 @@
 -- Project Site: pgmodeler.io
 -- Model Author: ---
 
--- Database creation must be performed outside a multi lined SQL file.
+-- Database creation must be performed outside a multi lined SQL file. 
 -- These commands were put in this file only as a convenience.
---
+-- 
 -- object: udistrital_financiera | type: DATABASE --
 -- DROP DATABASE IF EXISTS udistrital_financiera;
 -- CREATE DATABASE udistrital_financiera;
@@ -33,8 +33,8 @@ CREATE TABLE ingresos.ingreso (
 	movimiento_contable_id integer NOT NULL,
 	metadatos jsonb,
 	activo boolean NOT NULL,
-	fecha_creacion timestamptz NOT NULL,
-	fecha_modificacion timestamptz NOT NULL,
+	fecha_creacion timestamp with time zone NOT NULL,
+	fecha_modificacion timestamp with time zone NOT NULL,
 	CONSTRAINT pk_id_ingreso PRIMARY KEY (id)
 );
 -- ddl-end --
@@ -73,8 +73,8 @@ CREATE TABLE ingresos.tipo_ingreso (
 	numero_orden numeric(5,2),
 	codigo_abreviacion character varying(20),
 	activo boolean NOT NULL,
-	fecha_creacion timestamptz NOT NULL,
-	fecha_modificacion timestamptz NOT NULL,
+	fecha_creacion timestamp with time zone NOT NULL,
+	fecha_modificacion timestamp with time zone NOT NULL,
 	CONSTRAINT pk_id_tipo_ingreso PRIMARY KEY (id),
 	CONSTRAINT uq_codigo_abreviacion UNIQUE (codigo_abreviacion)
 );
@@ -105,8 +105,8 @@ CREATE TABLE ingresos.afectacion_presupuestal (
 	ingreso_id integer NOT NULL,
 	rubro_id integer NOT NULL,
 	activo boolean NOT NULL,
-	fecha_creacion timestamptz NOT NULL,
-	fecha_modificacion timestamptz NOT NULL,
+	fecha_creacion timestamp with time zone NOT NULL,
+	fecha_modificacion timestamp with time zone NOT NULL,
 	CONSTRAINT pk_afectacion_presupuestal PRIMARY KEY (id),
 	CONSTRAINT uq_ingreso_rubro_afectacion_presupuestal UNIQUE (ingreso_id,rubro_id)
 );
