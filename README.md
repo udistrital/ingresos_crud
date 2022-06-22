@@ -76,10 +76,7 @@ Pruebas unitarias
 ```
 
 ## Modelo de Datos
-
-[Modelo de Datos](database/ingresos.svg)  
-
-<img src="database/ingresos.svg" />
+[Esquema Ingresos](database/ingresos.svg)  
 
 [Modelo PgModeler](database/ingresos.dbm)
 
