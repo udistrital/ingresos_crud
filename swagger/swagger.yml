@@ -400,8 +400,7 @@ definitions:
       IngresoId:
         $ref: '#/definitions/models.Ingreso'
       RubroId:
-        type: integer
-        format: int64
+        type: string
   models.Deleted:
     title: Deleted
     type: object

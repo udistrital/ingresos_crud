@@ -592,8 +592,7 @@
                     "$ref": "#/definitions/models.Ingreso"
                 },
                 "RubroId": {
-                    "type": "integer",
-                    "format": "int64"
+                    "type": "string"
                 }
             }
         },
