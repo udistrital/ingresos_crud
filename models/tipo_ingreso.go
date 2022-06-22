@@ -16,7 +16,7 @@ type TipoIngreso struct {
 	Descripcion             string    `orm:"column(descripcion);null"`
 	ParametrizacionContable string    `orm:"column(parametrizacion_contable);null;type(jsonb)"`
 	NumeroOrden             float64   `orm:"column(numero_orden);null"`
-	CodigoAbreviacion       string    `orm:"column(codigo_abreaviacion);null"`
+	CodigoAbreviacion       string    `orm:"column(codigo_abreviacion);null"`
 	Activo                  bool      `orm:"column(activo)"`
 	FechaCreacion           time.Time `orm:"column(fecha_creacion);auto_now_add;type(datetime)"`
 	FechaModificacion       time.Time `orm:"column(fecha_modificacion);auto_now;type(datetime)"`
