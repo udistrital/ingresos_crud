@@ -19,9 +19,7 @@ API CRUD para la gestión de ingresos en el subsistema de Tesorería de Kronos.
 
 ### Variables de Entorno
 
-```sh
-# Por ajustar
-```
+Se proporciona el archivo [template.env](template.env) que relaciona las variables de entorno para ser remplazadas y cargadas fácilmente en el entorno.
 
 **NOTA:** Las variables se pueden ver en el fichero conf/app.conf y están identificadas con `INGRESOS_CRUD_...`
 
@@ -78,8 +76,9 @@ Pruebas unitarias
 ```
 
 ## Modelo de Datos
+[Esquema Ingresos](database/ingresos.svg)  
 
-<!-- [Modelo de Datos](https://github.com/udistrital/financiera_documentacion/blob/master/central_cuentas/orden_pago/orden_pafo.md) -->
+[Modelo PgModeler](database/ingresos.dbm)
 
 ## Licencia
 
