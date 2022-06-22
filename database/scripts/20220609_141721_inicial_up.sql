@@ -103,7 +103,7 @@ COMMENT ON COLUMN ingresos.tipo_ingreso.fecha_modificacion IS E'Fecha en la que 
 CREATE TABLE ingresos.afectacion_presupuestal (
 	id serial NOT NULL,
 	ingreso_id integer NOT NULL,
-	rubro_id integer NOT NULL,
+	rubro_id character varying(38) NOT NULL,
 	activo boolean NOT NULL,
 	fecha_creacion timestamp with time zone NOT NULL,
 	fecha_modificacion timestamp with time zone NOT NULL,
