@@ -13,7 +13,7 @@ import (
 type AfectacionPresupuestal struct {
 	Id                int       `orm:"column(id);pk;auto"`
 	IngresoId         *Ingreso  `orm:"column(ingreso_id);rel(fk)"`
-	RubroId           int       `orm:"column(rubro_id)"`
+	RubroId           string    `orm:"column(rubro_id);size(38)"`
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);auto_now_add;type(datetime)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);auto_now;type(datetime)"`
@@ -51,7 +51,7 @@ func GetAfectacionPresupuestalById(id int) (v *AfectacionPresupuestal, err error
 func GetAllAfectacionPresupuestal(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(AfectacionPresupuestal))
+	qs := o.QueryTable(new(AfectacionPresupuestal)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
