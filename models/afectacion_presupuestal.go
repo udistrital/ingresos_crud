@@ -13,7 +13,7 @@ import (
 type AfectacionPresupuestal struct {
 	Id                int       `orm:"column(id);pk;auto"`
 	IngresoId         *Ingreso  `orm:"column(ingreso_id);rel(fk)"`
-	RubroId           string    `orm:"column(rubro_id)"`
+	RubroId           string    `orm:"column(rubro_id);size(38)"`
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);auto_now_add;type(datetime)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);auto_now;type(datetime)"`
